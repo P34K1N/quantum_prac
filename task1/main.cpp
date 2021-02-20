@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <complex>
 #include <cstdlib>
 #include <ctime>
@@ -95,7 +96,11 @@ int main (int argc, char * argv []) {
     start = omp_get_wtime();
     transform_parallel(n, k, U, a);
     end = omp_get_wtime();
-    std::cout << end - start << std::endl;
+
+    std::ofstream f;
+    f.open(argv[4], std::ios::out);
+    f << end - start << std::endl;
+    f.close();
     //print(n, a);
 
     delete [] a;
