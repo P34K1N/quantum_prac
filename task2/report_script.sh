@@ -5,7 +5,7 @@ k=(1 13)
 t=(1 2 4 8 16)
 filename=""
 
-for i in {2..2}
+for i in {0..2}
 do
     for j in {0..2}
     do
@@ -14,14 +14,17 @@ do
         else ord=${k[j]}
         fi
     
-        for s in {0..0}
+        for s in {0..4}
         do
-            if [[ ${j} = 2 ]]
-            then filename="res/res_${n[i]}_n_${t[s]}.dat" 
-            else filename="res/res_${n[i]}_${k[j]}_${t[s]}.dat"
-            fi
-            
-            mpisubmit.pl -p ${t[s]} ./main -- g ${n[i]} ${ord} ${filename}
+            for u in {0..2}
+            do
+                if [[ ${j} = 2 ]]
+                then filename="res/res_${n[i]}_n_${t[s]}_${u}.dat" 
+                else filename="res/res_${n[i]}_${k[j]}_${t[s]}_${u}.dat"
+                fi
+                
+                mpisubmit.pl -p ${t[s]} ./main -- g ${n[i]} ${ord} ${filename}
+            done
         done
     done
 done

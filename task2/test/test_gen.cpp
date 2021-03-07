@@ -10,13 +10,16 @@ void generate (unsigned n, complexd * a) {
     double abs = 0.0;
     unsigned max = 1 << n;
     for (unsigned i = 0; i < max; i++) {
-        a[i] = complexd((std::rand() / (double) RAND_MAX - 0.5), (std::rand() / (double) RAND_MAX - 0.5));
+        //a[i] = complexd((std::rand() / (double) RAND_MAX - 0.5), (std::rand() / (double) RAND_MAX - 0.5));
+        a[i] = i;
         abs += std::abs(a[i]) * std::abs(a[i]);
     }
     abs = std::sqrt(abs);
+    /*
     for (unsigned i = 0; i < max; i++) {
         a[i] /= abs;
     }
+    */
 }
 
 int main (int argc, char * argv []) {

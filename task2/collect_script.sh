@@ -5,6 +5,7 @@ k=(1 13)
 t=(1 2 4 8 16)
 filename=""
 filename2=""
+filename3=""
 
 for i in {0..2}
 do
@@ -23,12 +24,21 @@ do
         for s in {0..4}
         do
             if [[ ${j} = 2 ]]
-            then filename="res/res_${n[i]}_n_${t[s]}.dat" 
-            else filename="res/res_${n[i]}_${k[j]}_${t[s]}.dat"
+            then filename2="res_n_${n[i]}_${t[s]}.dat" 
+            else filename2="res_${k[j]}_${n[i]}_${t[s]}.dat"
             fi
-            
-            printf "${n[i]} ${t[s]} " >> ${filename2}
-            cat ${filename} >> ${filename2}
+
+            for u in {0..2}
+            do
+                if [[ ${j} = 2 ]]
+                then filename="res_n_${n[i]}_${t[s]}_${u}.dat" 
+                else filename="res_${k[j]}_${n[i]}_${t[s]}_${u}.dat"
+                fi
+                
+                cat ${filename} >> ${filename2}
+            done
+            printf "${n[i]} ${t[s]} " >> ${filename3}
+            awk '{ total += $1; count++ } END  {print total / count}' ${filename2} >> ${filename3}
         done
     done
 done
