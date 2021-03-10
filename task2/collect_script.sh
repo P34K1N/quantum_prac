@@ -12,8 +12,8 @@ do
     for j in {0..2}
     do
         if [[ ${j} = 2 ]]
-        then filename2="res_n.dat" 
-        else filename2="res_${k[j]}.dat"
+        then filename3="res_n.dat" 
+        else filename3="res_${k[j]}.dat"
         fi
 
         if [[ ${j} = 2 ]] 
@@ -24,15 +24,15 @@ do
         for s in {0..4}
         do
             if [[ ${j} = 2 ]]
-            then filename2="res_n_${n[i]}_${t[s]}.dat" 
-            else filename2="res_${k[j]}_${n[i]}_${t[s]}.dat"
+            then filename2="res/res_${n[i]}_n_${t[s]}.dat" 
+            else filename2="res/res_${n[i]}_${k[j]}_${t[s]}.dat"
             fi
 
             for u in {0..2}
             do
                 if [[ ${j} = 2 ]]
-                then filename="res_n_${n[i]}_${t[s]}_${u}.dat" 
-                else filename="res_${k[j]}_${n[i]}_${t[s]}_${u}.dat"
+                then filename="res/res_${n[i]}_n_${t[s]}_${u}.dat" 
+                else filename="res/res_${n[i]}_${k[j]}_${t[s]}_${u}.dat"
                 fi
                 
                 cat ${filename} >> ${filename2}
