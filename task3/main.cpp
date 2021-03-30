@@ -408,6 +408,7 @@ int main (int argc, char * argv []) {
     MPI_Type_free(&BLOCKx2);
     
     delete [] a_loc;
+    delete [] a_check;
     delete [] counts;
     delete [] displc;
     MPI_Finalize();
