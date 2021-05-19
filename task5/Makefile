@@ -35,27 +35,30 @@ test: qft test/test1 test/res1
 	rm test/res ; \
 
 report: qft
-	for i in 25 ; \
+	for i in 23 24 25 26 ; \
 	do \
-		for t in 32 ; \
+		for t in 1 2 4 8 16 ; \
 		do \
-			for u in 0 ; \
+			for u in 0 1 2 ; \
 			do \
-				mpisubmit.bg -n $$t -w 00:05:00 ./qft -- g $$i /dev/null report/res_$${i}_$${t}_$${u}.dat ; \
+				# mpirun -n $$t ./qft g $$i /dev/null report/res_$${i}_$${t}_$${u}.dat ; \
+				mpisubmit.pl -p $$t --stdout /dev/null --stderr /dev/null ./qft -- g $$i /dev/null report/res_$${i}_$${t}_$${u}.dat ; \
 			done ; \
 		done ; \
 	done ;
 
-collect: report/res_25_32_0.dat report/res_28_512_2.dat
-	for i in 25 26 27 28 ; \
+collect: report/res_23_1_0.dat report/res_26_16_2.dat
+	rm report/temp.dat ; \
+	for i in 23 24 25 26 ; \
 	do \
-		for t in 32 64 128 256 512 ; \
+		for t in 1 2 4 8 16 ; \
 		do \
 			for u in 0 1 2 ; \
 			do \
-				cat report/res_$${i}_$${t}_$${u}.dat >> report/temp.dat
+				cat report/res_$${i}_$${t}_$${u}.dat >> report/temp.dat ; \
 			done ; \
-			printf "${n[i]} ${t[s]} " >> res.dat ; \
-            awk '{ total += $1; count++ } END  {print total / count}' temp.dat >> res.dat ; \
+			printf "$${i} $${t} " >> res.dat ; \
+            awk '{ total += $$1; count++ } END  {print total / count}' report/temp.dat >> res.dat ; \
+			rm report/temp.dat ; \
 		done ; \
 	done ;
